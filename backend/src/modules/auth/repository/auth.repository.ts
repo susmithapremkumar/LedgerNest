@@ -69,3 +69,35 @@ export const findRefreshToken =
   });
 
 };
+
+export const revokeRefreshToken =
+ async (
+  token: string
+ ) => {
+
+  return prisma.refreshToken.update({
+    where: {
+      token
+    },
+    data: {
+      revoked: true
+    }
+  });
+
+};
+
+export const revokeAllRefreshTokens =
+ async (
+  userId: string
+ ) => {
+
+  return prisma.refreshToken.updateMany({
+    where: {
+      userId
+    },
+    data: {
+      revoked: true
+    }
+  });
+
+};

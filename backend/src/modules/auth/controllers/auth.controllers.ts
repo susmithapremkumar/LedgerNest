@@ -3,13 +3,20 @@ import { registerUser } from "../services/auth.services";
 
 import { registerSchema } from "../validators/register.validator";
 
-import { NextFunction, Request, Response } from "express";
+import { 
+  NextFunction, 
+  Request, 
+  Response 
+} from "express";
 
 import { loginSchema } from "../validators/login.validator";
 
-import { loginUser } from "../services/auth.services";
-
-import {  refreshAccessToken } from "../services/auth.services";
+import { 
+  loginUser, 
+  refreshAccessToken, 
+  logoutUser, 
+  logoutAllDevices 
+} from "../services/auth.services";
 
 export const register = async (
   req: Request,
@@ -68,6 +75,63 @@ export const refreshToken = async (
     const result =
       await refreshAccessToken(
         refreshToken
+      );
+
+    return res
+      .status(200)
+      .json(result);
+
+  } catch (error) {
+
+    next(error);
+
+  }
+
+};
+
+export const logout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+
+  try {
+
+    const {
+      refreshToken
+    } = req.body;
+
+    const result =
+      await logoutUser(
+        refreshToken
+      );
+
+    return res
+      .status(200)
+      .json(result);
+
+  } catch (error) {
+
+    next(error);
+
+  }
+
+};
+
+export const logoutAll = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+
+  try {
+
+    const userId =
+      req.user!.userId;
+
+    const result =
+      await logoutAllDevices(
+        userId
       );
 
     return res

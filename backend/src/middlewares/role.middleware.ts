@@ -1,4 +1,4 @@
-import type {} from "../types/src/types/express";
+import type {} from "../types/express";
 
 import {
   Request,

@@ -7,7 +7,9 @@ import {
   createUser,
   createRefreshToken,
   findRefreshToken,
-  findUserById
+  findUserById,
+  revokeRefreshToken,
+  revokeAllRefreshTokens
 } from "../repository/auth.repository";
 
 import { env }
@@ -195,6 +197,38 @@ export const refreshAccessToken =
 
   return {
     accessToken
+  };
+
+};
+
+export const logoutUser =
+ async (
+  refreshToken: string
+ ) => {
+
+  await revokeRefreshToken(
+    refreshToken
+  );
+
+  return {
+    message:
+      "Logged out successfully"
+  };
+
+};
+
+export const logoutAllDevices =
+ async (
+  userId: string
+ ) => {
+
+  await revokeAllRefreshTokens(
+    userId
+  );
+
+  return {
+    message:
+      "Logged out from all devices"
   };
 
 };
