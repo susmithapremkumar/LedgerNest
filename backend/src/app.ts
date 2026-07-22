@@ -18,6 +18,12 @@ import { errorMiddleware } from "./middlewares/error.middleware";
 import adminRoutes
 from "../src/modules/admin/routes/admin.routes";
 
+import accountRoutes
+from "./modules/account/routes/account.routes";
+
+import transactionRoutes
+from "./modules/transaction/routes/transaction.routes";
+
 const app =
  express();
 
@@ -60,6 +66,16 @@ app.get(
 app.use(
  "/api/auth",
  authRoutes
+);
+
+app.use(
+  "/api/accounts",
+  accountRoutes
+);
+
+app.use(
+  "/api/transactions",
+  transactionRoutes
 );
 
 app.use(errorMiddleware);

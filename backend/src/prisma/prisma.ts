@@ -17,12 +17,9 @@ const prismaClient =
   });
 
 if (
- process.env.NODE_ENV
- !== "production"
+  process.env.NODE_ENV !== "production"
 ) {
- globalThis.prisma =
- prismaClient;
+  globalThis.prisma = prismaClient;
 }
 
-export const prisma =
- prismaClient;
+export const prisma = prismaClient;
